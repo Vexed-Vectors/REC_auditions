@@ -1,0 +1,113 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'base/styles/experiences.css' %}" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Interview Experiences</h1>
+    <div class="home-container">
+      <div class="Browse-Topics">
+        <h1>Browse Topics</h1>
+        <div>
+            <form action="" action="{% url 'experiences' %}">
+                <input type="text" name="q" placeholder="Search experiences...">
+
+            </form>
+        </div>
+        <h2>
+            Companies:
+            
+        </h2>
+        <span>
+              <a href="{% url 'experiences' %}"><button class="button-18"> All</button></a>
+        </span>
+        {% for experience in experiences %}
+        <span>
+            <a href="{% url 'experiences' %}?q={{experience.company}}"><button class="button-18"> {{experience.company}}</button></a>
+        </span>
+            {% endfor %}
+            <hr>
+        
+        <h2>
+            Posts:
+            
+        </h2>
+        <span>
+            <a href="{% url 'experiences' %}"><button class="button-18"> All</button></a>
+      </span>
+      {% for experience in experiences %}
+        <span>
+            <a href="{% url 'experiences' %}?q={{experience.post}}"><button class="button-18"> {{experience.post}}</button></a>
+        </span>
+            {% endfor %}
+            <hr>
+            
+      </div>
+
+      <div class="main">
+        <a href="{% url 'create-experience' %}"
+          ><button>
+            Post Experience
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-pencil-square"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"
+              />
+              <path
+                fill-rule="evenodd"
+                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
+              />
+            </svg>
+          </button>
+        </a>
+
+        {% for experience in experiences %}
+
+        <div class="experience-card">
+          <div class="content">
+            <h4>
+              <strong>{{experience.company}} {{experience.post}}</strong>
+              #{{experience.id}}
+            </h4>
+            <h4>
+              {{experience.post}}/<span class="post" style="color: red"
+                >{{experience.duration}}</span
+              >
+            </h4>
+            <h5>
+              Added by: {{user.get_full_name}} &nbsp &nbsp &nbsp Added on:
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-calendar-event"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"
+                />
+                <path
+                  d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
+                />
+              </svg>
+              {{experience.date_added}}
+            </h5>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

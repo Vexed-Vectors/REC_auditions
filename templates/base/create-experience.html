@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <form action="" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend>Write your experience! </legend>
+                <div class="question-card">
+                    Which company offered you the post? <br>
+                    <input type="text" name='company'>
+                </div>
+                <div class="question-card">
+                    What post you were offered? <br>
+                    <input type="text" name='post'>
+                </div>
+                <div class="question-card">
+                    Write shortly about your experience in the interview <br>
+                    <input type="text" name='content'>
+                </div>
+                <div class="question-card">
+                    What was the duration of your role in the company?<br> <br>
+                    Full Time<input type="radio" name="dur" value="Full Time"> &nbsp &nbsp Internship <input type="radio" name="dur" value="Internship">
+                    
+                </div>
+                
+                <br><br>
+                <input type="submit">
+                
+            </fieldset>
+
+        </form>
+    </div>
+
+    
+</body>
+</html>
