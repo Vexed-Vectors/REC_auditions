@@ -1,0 +1,10 @@
+Do you approve this experience or not?
+{{experience.user}}
+{{experience.post}} {{experience.duration}}
+{{experience.company}}
+{{experience.content}}
+<form action="" method="POST">
+    {% csrf_token %}
+Yes<input type="radio" value="Yes" name="is_approved"> &nbsp &nbsp No <input type="radio" value="No" name="is_approved">
+<input type="submit">
+</form>

@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'base/styles/experiences.css' %}" />
+
     <title>Document</title>
   </head>
   <body>
@@ -13,45 +14,77 @@
     <div class="home-container">
       <div class="Browse-Topics">
         <h1>Browse Topics</h1>
-        <div>
-            <form action="" action="{% url 'experiences' %}">
-                <input type="text" name="q" placeholder="Search experiences...">
+        <br />
+        <form action="{% url 'experiences' %}">
+          <div class="searchBox">
+            <input
+              class="searchInput"
+              type="text"
+              name="q"
+              placeholder="Search"
+            />
+            <button class="searchButton" href="{% url 'experiences' %}">
+              <i class="material-icons"> search </i>
+            </button>
+          </div>
+        </form>
+        <br />
 
-            </form>
-        </div>
-        <h2>
-            Companies:
-            
-        </h2>
-        <span>
-              <a href="{% url 'experiences' %}"><button class="button-18"> All</button></a>
-        </span>
-        {% for experience in experiences %}
-        <span>
-            <a href="{% url 'experiences' %}?q={{experience.company}}"><button class="button-18"> {{experience.company}}</button></a>
-        </span>
-            {% endfor %}
-            <hr>
-        
-        <h2>
-            Posts:
-            
-        </h2>
-        <span>
-            <a href="{% url 'experiences' %}"><button class="button-18"> All</button></a>
-      </span>
-      {% for experience in experiences %}
-        <span>
-            <a href="{% url 'experiences' %}?q={{experience.post}}"><button class="button-18"> {{experience.post}}</button></a>
-        </span>
-            {% endfor %}
-            <hr>
-            
+        <br />
+        <hr />
+
+        <h2 style="color: orange">Use Custom Filters</h2>
+        <form action="{% url 'experiences' %}" method="POST">
+          {% csrf_token %}
+
+          <h3>Companies</h3>
+          <br />
+
+          <div class="box" style="width: 200px">
+            <select name="company">
+              <option value="All">All</option>
+              {% for company in companies%}
+
+              <option value="{{company}}">{{company}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <h3>Posts</h3>
+          <br />
+
+          <div class="box" style="width: 200px">
+            <select name="post">
+              <option value="All">All</option>
+              {% for post in posts %}
+              <option value="{{post}}">{{post}}</option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <h3>Duration</h3>
+          <br />
+          <div class="box" style="width: 200px">
+            <select name="duration">
+              <option value="All">All</option>
+              {% for duration in durations %}
+             
+              <option value="{{duration}}">{{duration}}</option>
+           
+              {% endfor %}
+            </select>
+          </div>
+
+          <br />
+
+          <input type="submit" value="Submit Filters" />
+        </form>
       </div>
 
       <div class="main">
+        &nbsp &nbsp
         <a href="{% url 'create-experience' %}"
-          ><button>
+          ><button class="button-5" role="button">
             Post Experience
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -71,13 +104,21 @@
             </svg>
           </button>
         </a>
+        {% comment %} <span class="Internship">
+          <a href=""> <button>Internship</button> </a>
+        </span>
+        <span class="Full-Time">
+          <a href=""> <button>Full Time</button> </a>
+        </span> {% endcomment %}
 
         {% for experience in experiences %}
 
         <div class="experience-card">
           <div class="content">
             <h4>
-              <strong>{{experience.company}} {{experience.post}}</strong>
+              <a href="{% url 'experienceDetail' experience.id %}"
+                ><strong>{{experience.company}} {{experience.post}}</strong></a
+              >
               #{{experience.id}}
             </h4>
             <h4>
@@ -86,7 +127,8 @@
               >
             </h4>
             <h5>
-              Added by: {{user.get_full_name}} &nbsp &nbsp &nbsp Added on:
+              Added by: {{experience.user.get_full_name}} &nbsp &nbsp &nbsp
+              Added on:
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"

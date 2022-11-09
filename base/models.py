@@ -9,6 +9,10 @@ class Experience(models.Model):
     date_added = models.DateTimeField(auto_now_add= True)
     content = models.CharField(max_length=500, null=True, blank=False)
     is_approved = models.BooleanField(default= False, null=True, blank=True)
-    
     duration = models.CharField(max_length=20, null=True, blank=False)
 
+    def __str__(self):
+        return self.company
+    class Meta:
+        ordering = ['-date_added']
+    
